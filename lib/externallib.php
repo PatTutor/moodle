@@ -269,6 +269,15 @@ class external_api {
 
             $response['error'] = false;
             $response['data'] = $result;
+
+            if(!empty($response['data']['events'])) {
+                function stripslashes_array(&$array) {
+                    array_walk_recursive($array, function (&$value) {
+                        $value = htmlentities($value, ENT_QUOTES);
+                    });
+                }
+                stripslashes_array($response['data']['events']);
+            }
         } catch (Throwable $e) {
             $exception = get_exception_info($e);
             unset($exception->a);
