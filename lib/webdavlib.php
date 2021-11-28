@@ -827,6 +827,9 @@ EOD;
                 if (strcmp($response['status']['status-code'],'207') == 0 ) {
                     // ok so far
                     // next there should be a Content-Type: text/xml; charset="utf-8" header line
+                    if (isset($response['header']['content-type'])){
+                        $response['header']['Content-Type'] = $response['header']['content-type'];
+                    }
                     if (preg_match('#(application|text)/xml;\s?charset=[\'\"]?utf-8[\'\"]?#i', $response['header']['Content-Type'])) {
                         // ok let's get the content of the xml stuff
                         $this->_parser = xml_parser_create_ns('UTF-8');
