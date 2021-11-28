@@ -621,10 +621,10 @@ class pdf extends TcpdfFpdi {
         }
         $pdf->Close(); // PDF loaded and never saved/outputted needs to be closed.
 
-        if ($pagecount > 0) {
-            // PDF is already valid and can be read by tcpdf.
-            return $tempsrc;
-        }
+//        if ($pagecount > 0) {
+//            // PDF is already valid and can be read by tcpdf.
+//            return $tempsrc;
+//        }
 
         $temparea = make_request_directory();
         $tempdst = $temparea . "/target.pdf";
@@ -632,7 +632,7 @@ class pdf extends TcpdfFpdi {
         $gsexec = \escapeshellarg($CFG->pathtogs);
         $tempdstarg = \escapeshellarg($tempdst);
         $tempsrcarg = \escapeshellarg($tempsrc);
-        $command = "$gsexec -q -sDEVICE=pdfwrite -dBATCH -dNOPAUSE -sOutputFile=$tempdstarg $tempsrcarg";
+        $command = "$gsexec -q -sDEVICE=pdfimage24 -dBATCH -dNOPAUSE -sOutputFile=$tempdstarg $tempsrcarg";
         exec($command);
         if (!file_exists($tempdst)) {
             // Something has gone wrong in the conversion.
